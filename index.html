@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase & Stripe Integration Test</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="nav-container">
+                <div class="logo">
+                    <i class="fas fa-fire"></i>
+                    <span>FireStripe</span>
+                </div>
+                <nav class="nav-menu">
+                    <a href="#home" class="nav-link active">Home</a>
+                    <a href="#pricing" class="nav-link">Pricing</a>
+                    <a href="#dashboard" class="nav-link">Dashboard</a>
+                    <div class="auth-buttons">
+                        <button id="loginBtn" class="btn btn-outline">Login</button>
+                        <button id="signupBtn" class="btn btn-primary">Sign Up</button>
+                        <button id="logoutBtn" class="btn btn-outline" style="display: none;">Logout</button>
+                    </div>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1>Test Firebase & Stripe Integration</h1>
+                <p>A comprehensive testing platform for Firebase authentication, Firestore database, and Stripe subscription management with real-time updates.</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary btn-large" onclick="scrollToSection('pricing')">
+                        <i class="fas fa-rocket"></i>
+                        Get Started
+                    </button>
+                    <button class="btn btn-outline btn-large" onclick="scrollToSection('dashboard')">
+                        <i class="fas fa-chart-line"></i>
+                        View Dashboard
+                    </button>
+                </div>
+            </div>
+            <div class="hero-features">
+                <div class="feature-card">
+                    <i class="fab fa-google"></i>
+                    <h3>Firebase Auth</h3>
+                    <p>Secure user authentication with real-time status updates</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-database"></i>
+                    <h3>Firestore DB</h3>
+                    <p>Real-time database with live subscription tracking</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-credit-card"></i>
+                    <h3>Stripe Billing</h3>
+                    <p>Subscription management with webhook handling</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section id="pricing" class="pricing">
+            <div class="section-header">
+                <h2>Test Subscription Plans</h2>
+                <p>Choose a plan to test Stripe subscription integration</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="plan-header">
+                        <h3>Basic</h3>
+                        <div class="price">
+                            <span class="currency">$</span>
+                            <span class="amount">9</span>
+                            <span class="period">/month</span>
+                        </div>
+                    </div>
+                    <ul class="features">
+                        <li><i class="fas fa-check"></i> Firebase Authentication</li>
+                        <li><i class="fas fa-check"></i> Basic Firestore Access</li>
+                        <li><i class="fas fa-check"></i> Email Support</li>
+                        <li><i class="fas fa-times"></i> Real-time Updates</li>
+                    </ul>
+                    <button class="btn btn-outline subscribe-btn" data-price-id="price_basic">
+                        Subscribe to Basic
+                    </button>
+                </div>
+
+                <div class="pricing-card featured">
+                    <div class="popular-badge">Most Popular</div>
+                    <div class="plan-header">
+                        <h3>Pro</h3>
+                        <div class="price">
+                            <span class="currency">$</span>
+                            <span class="amount">19</span>
+                            <span class="period">/month</span>
+                        </div>
+                    </div>
+                    <ul class="features">
+                        <li><i class="fas fa-check"></i> Firebase Authentication</li>
+                        <li><i class="fas fa-check"></i> Full Firestore Access</li>
+                        <li><i class="fas fa-check"></i> Real-time Updates</li>
+                        <li><i class="fas fa-check"></i> Priority Support</li>
+                    </ul>
+                    <button class="btn btn-primary subscribe-btn" data-price-id="price_pro">
+                        Subscribe to Pro
+                    </button>
+                </div>
+
+                <div class="pricing-card">
+                    <div class="plan-header">
+                        <h3>Enterprise</h3>
+                        <div class="price">
+                            <span class="currency">$</span>
+                            <span class="amount">49</span>
+                            <span class="period">/month</span>
+                        </div>
+                    </div>
+                    <ul class="features">
+                        <li><i class="fas fa-check"></i> Everything in Pro</li>
+                        <li><i class="fas fa-check"></i> Advanced Analytics</li>
+                        <li><i class="fas fa-check"></i> Custom Integrations</li>
+                        <li><i class="fas fa-check"></i> 24/7 Support</li>
+                    </ul>
+                    <button class="btn btn-outline subscribe-btn" data-price-id="price_enterprise">
+                        Subscribe to Enterprise
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="dashboard">
+            <div class="section-header">
+                <h2>User Dashboard</h2>
+                <p>Real-time subscription and user data</p>
+            </div>
+            
+            <div class="dashboard-content">
+                <div class="user-info-card">
+                    <h3><i class="fas fa-user"></i> User Information</h3>
+                    <div id="userInfo" class="user-details">
+                        <p>Please log in to view your information</p>
+                    </div>
+                </div>
+
+                <div class="subscription-card">
+                    <h3><i class="fas fa-credit-card"></i> Subscription Status</h3>
+                    <div id="subscriptionInfo" class="subscription-details">
+                        <p>No active subscription</p>
+                    </div>
+                    <button id="manageSubscription" class="btn btn-primary" style="display: none;">
+                        Manage Subscription
+                    </button>
+                </div>
+
+                <div class="realtime-card">
+                    <h3><i class="fas fa-sync-alt"></i> Real-time Updates</h3>
+                    <div id="realtimeUpdates" class="updates-list">
+                        <p>Waiting for real-time updates...</p>
+                    </div>
+                </div>
+
+                <div class="webhook-card">
+                    <h3><i class="fas fa-webhook"></i> Webhook Events</h3>
+                    <div id="webhookEvents" class="events-list">
+                        <p>No webhook events received</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Auth Modal -->
+        <div id="authModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <div class="auth-container">
+                    <div class="auth-tabs">
+                        <button class="tab-btn active" data-tab="login">Login</button>
+                        <button class="tab-btn" data-tab="signup">Sign Up</button>
+                    </div>
+                    
+                    <div id="loginForm" class="auth-form active">
+                        <h3>Welcome Back</h3>
+                        <form>
+                            <div class="form-group">
+                                <input type="email" id="loginEmail" placeholder="Email" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" id="loginPassword" placeholder="Password" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-full">Login</button>
+                        </form>
+                        <div class="auth-divider">
+                            <span>or</span>
+                        </div>
+                        <button id="googleLogin" class="btn btn-google">
+                            <i class="fab fa-google"></i>
+                            Continue with Google
+                        </button>
+                    </div>
+
+                    <div id="signupForm" class="auth-form">
+                        <h3>Create Account</h3>
+                        <form>
+                            <div class="form-group">
+                                <input type="text" id="signupName" placeholder="Full Name" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" id="signupEmail" placeholder="Email" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" id="signupPassword" placeholder="Password" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-full">Sign Up</button>
+                        </form>
+                        <div class="auth-divider">
+                            <span>or</span>
+                        </div>
+                        <button id="googleSignup" class="btn btn-google">
+                            <i class="fab fa-google"></i>
+                            Sign up with Google
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div id="loadingOverlay" class="loading-overlay">
+            <div class="spinner"></div>
+            <p>Processing...</p>
+        </div>
+
+        <!-- Toast Notifications -->
+        <div id="toastContainer" class="toast-container"></div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    
+    <!-- Stripe SDK -->
+    <script src="https://js.stripe.com/v3/"></script>
+    
+    <!-- Application Scripts -->
+    <script src="config/firebase-config.js"></script>
+    <script src="config/stripe-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/firestore.js"></script>
+    <script src="js/stripe.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
